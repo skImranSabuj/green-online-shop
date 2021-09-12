@@ -33,13 +33,13 @@ const showProducts = (products) => {
     <div class="single-product bg-light m-1">
         <div class="top-section bg-white">
           <div>
-          <img class="product-image" src=${product.image}></img>
+          <img class="product-image pt-1" src=${product.image}></img>
           </div>
           <div class="title">
-            <h3 class="h-100 d-inline-block">${product.title}</h3>
+            <h3 class="h-100 d-inline-block">${product.title.slice(0,100)}</h3>
           </div>
         </div>
-        <h5>Rate: ${product.rating.rate} || ${product.rating.count} Ratings</h5>
+        <h5>Average Rating: ${product.rating.rate} - ${product.rating.count} Ratings</h5>
         <p>Category: ${product.category}</p>
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
