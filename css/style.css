@@ -47,7 +47,7 @@ body {
   transition: 0.6s;
 }
 .top-section {
-  border: 1px solid rgb(153, 150, 150);
+  border: 1px solid #54694b;
   border-radius: 10px;
 }
 .title{
@@ -71,13 +71,18 @@ body {
   height: 300px;
 }
 .cart {
+  background-color: #c3f5af;
   width: 350px;
-  /* border: 1px solid green; */
   padding: 10px;
   box-shadow: 10px 10px 20px gray;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-right: 30px;
   position: fixed;
+}
+.table-manual{
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 20px 10px 20px 10px;
 }
 .cart-main {
   padding-right: 30px;
