@@ -1,3 +1,4 @@
+//Load products on load
 const loadProducts = () => {
   const url = `https://fakestoreapi.com/products`;
   fetch(url)
@@ -10,6 +11,7 @@ const loadProducts = () => {
 
 };
 loadProducts();
+
 // Show product details 
 const loadProductDetails = (product_id) => {
   const url = `https://fakestoreapi.com/products/${product_id}`;
@@ -29,7 +31,7 @@ const showProducts = (products) => {
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `
-    <div class="single-product m-1">
+    <div class="single-product m-2">
         <div class="top-section bg-white px-3">
           <div>
           <img class="product-image py-2" src=${product.image}></img>
@@ -105,13 +107,14 @@ const updateTotal = () => {
 };
 
 updateTotal();
+//Show Product details on click
 function showProductDetails(product) {
   const productDetails = document.getElementById("product-details");
   productDetails.textContent = "";
   const div = document.createElement("div");
   div.classList.add("product-details");
   div.innerHTML = `
-    <div class="single-product m-1">
+    <div class="single-product m-3">
         <div class="top-section bg-white">
           <div class="mx-auto d-flex justify-content-center pt-3">
           <img class="product-image-large" src=${product.image}></img>
