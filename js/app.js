@@ -7,6 +7,7 @@ const loadProducts = () => {
       showError();
       console.log('Something Went Wrong :', error)
     });
+
 };
 loadProducts();
 // Show product details 
@@ -22,24 +23,22 @@ const loadProductDetails = (product_id) => {
 };
 // show all product in UI 
 const showProducts = (products) => {
-  //testing
-  console.log(products);
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
     const image = product.images;
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `
-    <div class="single-product bg-light m-1">
-        <div class="top-section bg-white">
+    <div class="single-product m-1">
+        <div class="top-section bg-white px-3">
           <div>
-          <img class="product-image pt-1" src=${product.image}></img>
+          <img class="product-image py-2" src=${product.image}></img>
           </div>
           <div class="title">
-            <h3 class="h-100 d-inline-block">${product.title.slice(0,100)}</h3>
+            <h3 class="h-100 d-inline-block">${product.title.slice(0, 40)}</h3>
           </div>
         </div>
-        <h5>Average Rating: ${product.rating.rate} - ${product.rating.count} Ratings</h5>
+        <h6>Average Rating: ${product.rating.rate} || ${product.rating.count} Ratings</h6>
         <p>Category: ${product.category}</p>
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
@@ -76,7 +75,7 @@ const updatePrice = (id, value) => {
 
 // set innerText function
 const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = Math.round(value);
+  document.getElementById(id).innerText = roundToX(value, 2);
 };
 
 // update delivery charge and total Tax
@@ -103,24 +102,23 @@ const updateTotal = () => {
     getInputValue("price") + getInputValue("delivery-charge") +
     getInputValue("total-tax");
   document.getElementById("total").innerText = roundToX(grandTotal, 2);
-  console.log(getInputValue("price"));
-  console.log(getInputValue("total-tax"));
 };
 
 updateTotal();
 function showProductDetails(product) {
+  const productDetails = document.getElementById("product-details");
+  productDetails.textContent = "";
   const div = document.createElement("div");
   div.classList.add("product-details");
-  console.log(product.title.slice(0, 10));
   div.innerHTML = `
-    <div class="single-product bg-light m-1">
+    <div class="single-product m-1">
         <div class="top-section bg-white">
-          <div class="mx-auto d-flex justify-content-center">
+          <div class="mx-auto d-flex justify-content-center pt-3">
           <img class="product-image-large" src=${product.image}></img>
           </div>
-          <div class="title">
+          <div class="text-center pt-3 px-4">
             <h4 class="h-100 d-inline-block">${product.title}</h4>
-            <p>Product Details: <br> ${product.description}</p>
+            <p class="text-center">Product Details: <br> ${product.description}</p>
           </div>
         </div>
         <h5>Rate: ${product.rating.rate}/5 || ${product.rating.count} Ratings</h5>
@@ -130,7 +128,7 @@ function showProductDetails(product) {
         <button id="details-btn" class="btn btn-danger">Buy Now</button>
     </div>
       `;
-  document.getElementById("product-details").appendChild(div);
+  productDetails.appendChild(div);
 }
 function roundToX(num, X) {
   return +(Math.round(num + "e+" + X) + "e-" + X);
