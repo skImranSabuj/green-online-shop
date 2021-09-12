@@ -2,26 +2,39 @@ const loadProducts = () => {
   const url = `https://fakestoreapi.com/products`;
   fetch(url)
     .then((response) => response.json())
-    .then((data) => showProducts(data));
+    .then((data) => showProducts(data))
+    .catch(error => {
+      showError();
+      console.log('Something Went Wrong :', error)
+    });
 };
 loadProducts();
 
 // show all product in UI 
 const showProducts = (products) => {
+  //testing
+  console.log(products);
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
     const image = product.images;
     const div = document.createElement("div");
     div.classList.add("product");
-    div.innerHTML = `<div class="single-product">
-      <div>
-    <img class="product-image" src=${image}></img>
-      </div>
-      <h3>${product.title}</h3>
-      <p>Category: ${product.category}</p>
-      <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+    div.innerHTML = `
+    <div class="single-product bg-success py-2 m-2">
+        <div class="top-section">
+          <div>
+          <img class="product-image" src=${product.image}></img>
+          </div>
+          <div class="title">
+            <h3 class="h-100 d-inline-block">${product.title}</h3>
+          </div>
+        </div>
+        <h5>Rate: ${product.rating.rate} || ${product.rating.count} Ratings</h5>
+        <p>Category: ${product.category}</p>
+        <h2>Price: $ ${product.price}</h2>
+        <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
+        <button onclick="showDetails()" id="details-btn" class="btn btn-danger">Details</button>
+    </div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -37,7 +50,7 @@ const addToCart = (id, price) => {
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
-  const converted = parseInt(element);
+  const converted = parseFloat(element);
   return converted;
 };
 
@@ -46,7 +59,9 @@ const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.round(total);
+  document.getElementById(id).innerText = roundToX(total, 2);
+
+  updateTotal(); // to fix Total
 };
 
 // set innerText function
@@ -69,6 +84,7 @@ const updateTaxAndCharge = () => {
     setInnerText("delivery-charge", 60);
     setInnerText("total-tax", priceConverted * 0.4);
   }
+  updateTotal(); // to fix total
 };
 
 //grandTotal update function
@@ -76,5 +92,19 @@ const updateTotal = () => {
   const grandTotal =
     getInputValue("price") + getInputValue("delivery-charge") +
     getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+  document.getElementById("total").innerText = roundToX(grandTotal, 2);
+  console.log(getInputValue("price"));
+  console.log(getInputValue("total-tax"));
 };
+
+updateTotal();
+
+function roundToX(num, X) {
+  return +(Math.round(num + "e+" + X) + "e-" + X);
+}
+
+function showError(){
+  const h3=document.createElement('h3');
+  h3.innerText=`Opps.. Something Went Wrong, Please Try later`;
+  document.getElementById("error-div").appendChild(h3);
+}
