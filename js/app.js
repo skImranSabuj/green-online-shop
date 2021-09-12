@@ -37,7 +37,7 @@ const showProducts = (products) => {
           <img class="product-image py-2" src=${product.image}></img>
           </div>
           <div class="title">
-            <h3 class="h-100 d-inline-block">${product.title.slice(0, 40)}</h3>
+            <h3 class="h-100 d-inline-block">${product.title.slice(0, 35)}</h3>
           </div>
         </div>
         <h6>Average Rating: ${product.rating.rate} || ${product.rating.count} Ratings</h6>
