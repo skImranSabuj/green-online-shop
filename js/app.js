@@ -9,7 +9,17 @@ const loadProducts = () => {
     });
 };
 loadProducts();
-
+// Show product details 
+const loadProductDetails = (product_id) => {
+  const url = `https://fakestoreapi.com/products/${product_id}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => showProductDetails(data))
+    .catch(error => {
+      showError();
+      console.log('Something Went Wrong :', error)
+    });
+};
 // show all product in UI 
 const showProducts = (products) => {
   //testing
@@ -20,8 +30,8 @@ const showProducts = (products) => {
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `
-    <div class="single-product bg-success py-2 m-2">
-        <div class="top-section">
+    <div class="single-product bg-light m-1">
+        <div class="top-section bg-white">
           <div>
           <img class="product-image" src=${product.image}></img>
           </div>
@@ -33,7 +43,7 @@ const showProducts = (products) => {
         <p>Category: ${product.category}</p>
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-        <button onclick="showDetails()" id="details-btn" class="btn btn-danger">Details</button>
+        <button onclick="loadProductDetails(${product.id})" id="details-btn" class="btn btn-danger">Details</button>
     </div>
       `;
     document.getElementById("all-products").appendChild(div);
@@ -98,13 +108,36 @@ const updateTotal = () => {
 };
 
 updateTotal();
-
+function showProductDetails(product) {
+  const div = document.createElement("div");
+  div.classList.add("product-details");
+  console.log(product.title.slice(0, 10));
+  div.innerHTML = `
+    <div class="single-product bg-light m-1">
+        <div class="top-section bg-white">
+          <div class="mx-auto d-flex justify-content-center">
+          <img class="product-image-large" src=${product.image}></img>
+          </div>
+          <div class="title">
+            <h4 class="h-100 d-inline-block">${product.title}</h4>
+            <p>Product Details: <br> ${product.description}</p>
+          </div>
+        </div>
+        <h5>Rate: ${product.rating.rate}/5 || ${product.rating.count} Ratings</h5>
+        <p>Category: ${product.category}</p>
+        <h2>Price: $ ${product.price}</h2>
+        <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
+        <button id="details-btn" class="btn btn-danger">Buy Now</button>
+    </div>
+      `;
+  document.getElementById("product-details").appendChild(div);
+}
 function roundToX(num, X) {
   return +(Math.round(num + "e+" + X) + "e-" + X);
 }
 
-function showError(){
-  const h3=document.createElement('h3');
-  h3.innerText=`Opps.. Something Went Wrong, Please Try later`;
+function showError() {
+  const h3 = document.createElement('h3');
+  h3.innerText = `Opps.. Something Went Wrong, Please Try later`;
   document.getElementById("error-div").appendChild(h3);
 }
