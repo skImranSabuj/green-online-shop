@@ -1,6 +1,7 @@
 body {
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
+  min-height: 1000px;
 }
 /* Top section  */
 .logo{
@@ -86,6 +87,10 @@ body {
 }
 .cart-main {
   padding-right: 30px;
+}
+.footer{
+  position: relative;
+  bottom: 0;
 }
 @media only screen and (max-width: 768px) {
   #all-products {

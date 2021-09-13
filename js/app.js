@@ -47,7 +47,8 @@ const showProducts = (products) => {
         <i class="${getClass(rat, 3)}"></i>
         <i class="${getClass(rat, 4)}"></i>
         <i class="${getClass(rat, 5)}"></i> <br>
-        ${rat} || ${product.rating.count} Ratings</h6>
+        <small>${rat} || ${product.rating.count} Ratings</small>
+        </h6>
         <p>Category: ${product.category}</p>
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
@@ -90,6 +91,10 @@ const setInnerText = (id, value) => {
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
+  if (priceConverted <= 200) {
+    setInnerText("delivery-charge", 20);
+    setInnerText("total-tax", priceConverted * 0.2);
+  }
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
     setInnerText("total-tax", priceConverted * 0.2);
