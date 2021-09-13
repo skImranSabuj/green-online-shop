@@ -144,4 +144,8 @@ body {
   .cart-single{
     order:2
   }
+
+  #bar{
+    width: 90% !important;
+  }
 }
