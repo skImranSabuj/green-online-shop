@@ -38,7 +38,7 @@ const showProducts = (products) => {
           <img class="product-image py-2" src=${product.image}></img>
           </div>
           <div class="title">
-            <h3 class="h-100 d-inline-block">${product.title.slice(0, 34)}</h3>
+            <h3>${product.title}</h3>
           </div>
         </div>
         <h6>  
