@@ -30,17 +30,24 @@ const showProducts = (products) => {
     const image = product.images;
     const div = document.createElement("div");
     div.classList.add("product");
+    const rat = product.rating.rate;
     div.innerHTML = `
     <div class="single-product m-2">
-        <div class="top-section bg-white px-3">
+        <div class="top-section bg-white px-3 mb-2">
           <div>
           <img class="product-image py-2" src=${product.image}></img>
           </div>
           <div class="title">
-            <h3 class="h-100 d-inline-block">${product.title.slice(0, 35)}</h3>
+            <h3 class="h-100 d-inline-block">${product.title.slice(0, 34)}</h3>
           </div>
         </div>
-        <h6>Average Rating: ${product.rating.rate} || ${product.rating.count} Ratings</h6>
+        <h6>  
+        <i class="${getClass(rat, 1)}"></i>
+        <i class="${getClass(rat, 2)}"></i>
+        <i class="${getClass(rat, 3)}"></i>
+        <i class="${getClass(rat, 4)}"></i>
+        <i class="${getClass(rat, 5)}"></i> <br>
+        ${rat} || ${product.rating.count} Ratings</h6>
         <p>Category: ${product.category}</p>
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
@@ -113,6 +120,7 @@ function showProductDetails(product) {
   productDetails.textContent = "";
   const div = document.createElement("div");
   div.classList.add("product-details");
+  const rat = product.rating.rate;
   div.innerHTML = `
     <div class="single-product m-3">
         <div class="top-section bg-white">
@@ -124,7 +132,14 @@ function showProductDetails(product) {
             <p class="text-center">Product Details: <br> ${product.description}</p>
           </div>
         </div>
-        <h5>Rate: ${product.rating.rate}/5 || ${product.rating.count} Ratings</h5>
+        <div>
+        <i class="${getClass(rat, 1)}"></i>
+        <i class="${getClass(rat, 2)}"></i>
+        <i class="${getClass(rat, 3)}"></i>
+        <i class="${getClass(rat, 4)}"></i>
+        <i class="${getClass(rat, 5)}"></i>
+      </div>
+        <h5>Rate: ${rat}/5 || ${product.rating.count} Ratings</h5>
         <p>Category: ${product.category}</p>
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
@@ -141,4 +156,9 @@ function showError() {
   const h3 = document.createElement('h3');
   h3.innerText = `Opps.. Something Went Wrong, Please Try later`;
   document.getElementById("error-div").appendChild(h3);
+}
+function getClass(rat, pos) {
+  if (rat < pos && rat > (pos - 1)) return 'fas fa-star-half-alt';
+  else if (rat > pos || rat == pos) return 'fas fa-star';
+  else return 'far fa-star';
 }
