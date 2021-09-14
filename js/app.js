@@ -91,10 +91,6 @@ const setInnerText = (id, value) => {
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
-  if (priceConverted <= 200) {
-    setInnerText("delivery-charge", 20);
-    setInnerText("total-tax", priceConverted * 0.2);
-  }
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
     setInnerText("total-tax", priceConverted * 0.2);
@@ -134,7 +130,7 @@ function showProductDetails(product) {
           </div>
           <div class="text-center pt-3 px-4">
             <h4 class="h-100 d-inline-block">${product.title}</h4>
-            <p class="text-center">Product Details: <br> ${product.description}</p>
+            <p class="text-center"><b>Product Details: </b><br> ${product.description}</p>
           </div>
         </div>
         <div>
@@ -148,7 +144,7 @@ function showProductDetails(product) {
         <p>Category: ${product.category}</p>
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-        <button id="details-btn" class="btn btn-danger">Buy Now</button>
+        <button id="details-btn" class="btn btn-success">Buy Now</button>
     </div>
       `;
   productDetails.appendChild(div);
